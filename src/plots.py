@@ -32,9 +32,8 @@ def plot_confusion_matrix(cm, title):
     plt.xlabel('Predicted label')
     plt.tight_layout()
 
-
-def plot(x_test, y_test, imported_model):
-    model=load_model(imported_model)
+def plot(x_test, y_test, model_name):
+    model=load_model(model_name)
 
     x_test = keras.preprocessing.sequence.pad_sequences(x_test, maxlen=100)
 
