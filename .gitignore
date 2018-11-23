@@ -111,7 +111,6 @@ tags
 *.swp
 *.vim
 
-normalized_data
 audio/normalized_data
-test_normalized_data
+audio/test_normalized_data
 .DS_Store
