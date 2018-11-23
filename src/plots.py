@@ -2,13 +2,18 @@ from __future__ import print_function
 
 import itertools
 import numpy as np
-import matplotlib.pyplot as plt
-
-
 import sys
+import keras
+import matplotlib.pyplot as plt
+from keras.models import load_model
+from sklearn.metrics import confusion_matrix
+from dataset import get_set
 
 
-def plot_confusion_matrix(cm, classes,title):
+
+classes = ['cero','uno','dos','tres','cuatro','cinco','seis','siete','ocho','nueve','diez','once','doce','trece','catorce', 'quince']
+
+def plot_confusion_matrix(cm, title):
 
     plt.imshow(cm, interpolation='nearest', cmap=plt.cm.Blues)
     plt.title(title)
@@ -28,5 +33,36 @@ def plot_confusion_matrix(cm, classes,title):
     plt.tight_layout()
 
 
+def plot(x_test, y_test):
+    model=load_model('model/mode7.hdf5')
+
+    x_test = keras.preprocessing.sequence.pad_sequences(x_test, maxlen=100)
+
+    y_predict = model.predict_classes (x_test, verbose=0)
+    
+    plt.figure()
+    cm = confusion_matrix(y_test,y_predict)
+    cm = cm.astype('float') / cm.sum(axis=1)[:, np.newaxis]
+    plot_confusion_matrix(cm, title='Confusion matrix')
+    plt.show()
 
 
+
+def semi_plot():
+    model=load_model('model/model7.hdf5')
+
+    x_test, y_test=get_set(13,9,'audio/test_normalized_data')
+    x_test = keras.preprocessing.sequence.pad_sequences(x_test, maxlen=100)
+
+    y_predict = model.predict_classes (x_test, verbose=0)
+    
+    plt.figure()
+    cm = confusion_matrix(y_test,y_predict)
+    cm = cm.astype('float') / cm.sum(axis=1)[:, np.newaxis]
+    plot_confusion_matrix(cm, title='Confusion matrix')
+    plt.show()
+
+
+
+if __name__== "__main__":
+        semi_plot()

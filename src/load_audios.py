@@ -7,10 +7,8 @@ from pydub.playback import play #PRUEBAS sirve para reproducir audios
 
 import pathlib
 
-audio_path = 'data'
-normalized_audio_path = 'normalized_data'
-test_audio_path = 'test_data'
-test_normalized_audio_path = 'test_normalized_data'
+audio_path = 'audio/data'
+normalized_audio_path = 'audio/normalized_data'
 pathlib.Path(normalized_audio_path).mkdir(parents=True, exist_ok=True)
 
 
@@ -19,7 +17,6 @@ normalized_audios = []
 def match_target_amplitude(sound, target_dBFS):
     change_in_dBFS = target_dBFS - sound.dBFS
     return sound.apply_gain(change_in_dBFS)
-
 
 
 def normalize(audio_path, normalized_audio_path):
@@ -33,6 +30,6 @@ def normalize_single(path):
     normalized_audio = match_target_amplitude(sound, -20)
     normalized_audio.export ("normalized_" + path, format = 'wav')
 
+
 if __name__== "__main__":
-    normalize(audio_path,normalized_audio_path)
-    normalize(test_audio_path,test_normalized_audio_path)
+    normalize(audio_path, normalized_audio_path)

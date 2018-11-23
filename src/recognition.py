@@ -120,4 +120,4 @@ if __name__ == '__main__':
     record_to_file('demo.wav')
     print("Done - result written to demo.wav")
     normalize_single('demo.wav')
-    print("The recognized number is: " + predictNumber('normalized_demo.wav') + "!!!!")
+    print("The recognized number is:  " + predictNumber('normalized_demo.wav') + "!!!!")

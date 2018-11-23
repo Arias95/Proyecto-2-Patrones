@@ -4,9 +4,9 @@ import keras
 import sys
 import matplotlib.pyplot as plt
 from keras.models import load_model
-from dataset import input_vector, get_test_set
 from scipy.io import wavfile as wav
 from plots import plot_confusion_matrix
+from dataset import input_vector 
 from sklearn.metrics import confusion_matrix
 
 
@@ -14,7 +14,7 @@ from sklearn.metrics import confusion_matrix
 Classes = ['cero','uno','dos','tres','cuatro','cinco','seis','siete','ocho','nueve','diez','once','doce','trece','catorce', 'quince']
 
 def predictNumber(audioPath):
-    model=load_model('model/model4.hdf5')
+    model=load_model('model/model7.hdf5')
 
     ##procesar audio, o lo que sea y meter en audio
     fs, audio = wav.read(audioPath) ## tiene que ser normalizado
@@ -31,28 +31,7 @@ def predictNumber(audioPath):
 
 
 
-def plot():
-    model=load_model('model/model4.hdf5')
-
-    x_test, y_test=get_test_set(13,9)
-    x_test = keras.preprocessing.sequence.pad_sequences(x_test, maxlen=100)
-
-    y_predict = model.predict_classes (x_test, verbose=0)
-    
-    plt.figure()
-    cm = confusion_matrix(y_test,y_predict)
-    cm = cm.astype('float') / cm.sum(axis=1)[:, np.newaxis]
-    plot_confusion_matrix(cm, classes=Classes, title='Confusion matrix')
-    plt.show()
-
-
-
 if __name__=='__main__':
-    type=sys.argv[1]
-
-    if type=="-p":
-        audio=sys.argv[2]
-        number = predictNumber(audio)
-        print("System Output: " + number)
-    elif type=="-m":
-        plot()
+    audio=sys.argv[1]
+    number = predictNumber(audio)
+    print("System Output: " + number)

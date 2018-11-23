@@ -21,12 +21,15 @@ normalized_audio_path = 'normalized_data'
 test_audio_path = 'test_normalized_data'
 pathlib.Path(normalized_audio_path).mkdir(parents=True, exist_ok=True)
 
+
+
 def get_number (audio_name):
     number_name = audio_name [0 : audio_name.find('_')]
     num_array = ['cero', 'uno', 'dos', 'tres', 'cuatro', 'cinco', 'seis', 'siete', 'ocho', 'nueve', 'diez',
                     'once', 'doce', 'trece', 'catorce', 'quince']
     num = num_array.index(number_name)
     return num
+
 
 #Load all the audios and normalize them
 #Returns a list with the normalized audios and save the normalized audios in the normalized_audios directory.
@@ -40,27 +43,12 @@ def load_audios (audio_path):
 ################################################################################
 
 
-#Rerurns the MFCC vector and the number
-def get_training_set(numcep, numcontext):
-    training_set = []
-    label_set = []
-    fs, normalized_audios = load_audios(normalized_audio_path)
-    for i in range (len(normalized_audios)):
-        audio = normalized_audios [i][0]
-        number = normalized_audios [i][1]
-        audio_info = input_vector(audio, fs, numcep, numcontext)
-        #audio_info=np.reshape(100,audio_info.shape[1])
-        label_set.append(number)
-        training_set.append(audio_info)
-    assert(len(label_set) == len(training_set))
-    return np.asarray(training_set), np.asarray(label_set)
-    
 
-#Rerurns the MFCC vector and the number
-def get_test_set(numcep, numcontext):
+
+def get_set(numcep, numcontext, audio_path):
     training_set = []
     label_set = []
-    fs, normalized_audios = load_audios(test_audio_path)
+    fs, normalized_audios = load_audios(audio_path)
     for i in range (len(normalized_audios)):
         audio = normalized_audios [i][0]
         number = normalized_audios [i][1]
@@ -70,6 +58,8 @@ def get_test_set(numcep, numcontext):
         training_set.append(audio_info)
     assert(len(label_set) == len(training_set))
     return np.asarray(training_set), np.asarray(label_set)
+
+
 
 def input_vector(audio, fs, numcep, numcontext):
     '''
@@ -146,13 +136,9 @@ def input_vector(audio, fs, numcep, numcontext):
     return train_inputs
 
 
-def main():
-    X, Y = get_training_set(13, 9)
+if __name__== "__main__":
+    X, Y = get_set(13, 9,'audio/normalized_data')
     print(X.shape)
     print(Y.shape)
     X = keras.preprocessing.sequence.pad_sequences(X, maxlen=100)
     print(X.shape)
-
-
-if __name__== "__main__":
-  main()
