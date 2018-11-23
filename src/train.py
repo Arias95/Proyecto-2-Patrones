@@ -30,7 +30,7 @@ def train(audio_path,plot_matrix = False):
     model.save(model_name)
 
     if plot_matrix:
-        plot(x_test, Y_test)
+        plot(x_test, Y_test,model_name)
 
 
 if __name__=='__main__':

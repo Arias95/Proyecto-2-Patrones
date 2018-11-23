@@ -33,8 +33,8 @@ def plot_confusion_matrix(cm, title):
     plt.tight_layout()
 
 
-def plot(x_test, y_test):
-    model=load_model('model/mode7.hdf5')
+def plot(x_test, y_test, imported_model):
+    model=load_model(imported_model)
 
     x_test = keras.preprocessing.sequence.pad_sequences(x_test, maxlen=100)
 
