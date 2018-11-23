@@ -8,14 +8,14 @@ from plots import plot
 import matplotlib.pyplot as plt
 
 
-model_name = 'model/mode10.hdf5'
+model_name = 'model/model11.hdf5'
 
 def train(audio_path,plot_matrix = False):
 
-    x_data, y_data=get_set(13,9,audio_path)
+    x_data, y_data=get_set(26,9,audio_path)
     x_data = keras.preprocessing.sequence.pad_sequences(x_data, maxlen=100)
 
-    x_train, x_test, Y_train, Y_test = train_test_split(x_data, y_data,test_size=0.1)
+    x_train, x_test, Y_train, Y_test = train_test_split(x_data, y_data,test_size=0.1, random_state=42)
 
 
     y_train = keras.utils.to_categorical(Y_train, 16)
@@ -30,7 +30,7 @@ def train(audio_path,plot_matrix = False):
     model.save(model_name)
 
     if plot_matrix:
-        plot(x_test, Y_test)
+        plot(x_test, Y_test,model_name)
 
 
 if __name__=='__main__':
