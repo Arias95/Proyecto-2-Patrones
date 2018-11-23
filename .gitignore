@@ -112,5 +112,6 @@ tags
 *.vim
 
 normalized_data
-
+audio/normalized_data
+test_normalized_data
 .DS_Store
