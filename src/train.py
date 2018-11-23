@@ -8,7 +8,7 @@ from plots import plot
 import matplotlib.pyplot as plt
 
 
-model_name = 'model/model11.hdf5'
+model_name = 'model/model_train.hdf5'
 
 def train(audio_path,plot_matrix = False):
 

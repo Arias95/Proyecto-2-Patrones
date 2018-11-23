@@ -14,7 +14,7 @@ from sklearn.metrics import confusion_matrix
 Classes = ['cero','uno','dos','tres','cuatro','cinco','seis','siete','ocho','nueve','diez','once','doce','trece','catorce', 'quince']
 
 def predictNumber(audioPath):
-    model=load_model('model/model7.hdf5')
+    model=load_model('model/model11.hdf5')
 
     ##procesar audio, o lo que sea y meter en audio
     fs, audio = wav.read(audioPath) ## tiene que ser normalizado

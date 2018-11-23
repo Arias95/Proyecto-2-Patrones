@@ -48,7 +48,7 @@ def plot(x_test, y_test, model_name):
 
 
 def semi_plot():
-    model=load_model('model/model7.hdf5')
+    model=load_model('model/model11.hdf5')
 
     x_test, y_test=get_set(13,9,'audio/test_normalized_data')
     x_test = keras.preprocessing.sequence.pad_sequences(x_test, maxlen=100)
