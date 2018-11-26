@@ -122,7 +122,7 @@ def record_to_file(path):
 
 if __name__ == '__main__':
     while True:
-        i = input("Press Enter to recognize: ")
+        input("Press Enter to recognize")
         print("Please speak a word into the microphone")
         record_to_file('demo.wav')
         print("Done - result written to demo.wav")
