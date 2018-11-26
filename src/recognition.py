@@ -6,6 +6,11 @@ import pyaudio
 import wave
 from predict import predictNumber
 from load_audios import normalize_single
+import os
+import warnings
+
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
+warnings.filterwarnings("ignore", category=RuntimeWarning) 
 THRESHOLD = 500
 CHUNK_SIZE = 1024
 FORMAT = pyaudio.paInt16
@@ -116,8 +121,10 @@ def record_to_file(path):
     wf.close()
 
 if __name__ == '__main__':
-    print("Please speak a word into the microphone")
-    record_to_file('demo.wav')
-    print("Done - result written to demo.wav")
-    normalize_single('demo.wav')
-    print("The recognized number is:  " + predictNumber('normalized_demo.wav') + "!!!!")
+    while True:
+        i = input("Press Enter to recognize: ")
+        print("Please speak a word into the microphone")
+        record_to_file('demo.wav')
+        print("Done - result written to demo.wav")
+        normalize_single('demo.wav')
+        print("The recognized number is:  " + predictNumber('normalized_demo.wav') + "!!!!")
