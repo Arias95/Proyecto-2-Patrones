@@ -6,6 +6,7 @@ from dataset import get_set
 from model import getModel
 from plots import plot
 import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt
 
 
 model_name = 'model/model_train.hdf5'
@@ -23,7 +24,24 @@ def train(audio_path,plot_matrix = False):
 
     model = getModel((x_train.shape[1],x_train.shape[2]), y_train.shape[1])
 
-    model.fit(x_train, y_train,batch_size=10,epochs=137, verbose=1,validation_data=(x_test, y_test))
+    history = model.fit(x_train, y_train,batch_size=10,epochs=137, verbose=1,validation_data=(x_test, y_test))
+    # Plot training & validation accuracy values
+    plt.plot(history.history['acc'])
+    plt.plot(history.history['val_acc'])
+    plt.title('Model accuracy')
+    plt.ylabel('Accuracy')
+    plt.xlabel('Epoch')
+    plt.legend(['Train', 'Test'], loc='upper left')
+    plt.show()
+
+    # Plot training & validation loss values
+    plt.plot(history.history['loss'])
+    plt.plot(history.history['val_loss'])
+    plt.title('Model loss')
+    plt.ylabel('Loss')
+    plt.xlabel('Epoch')
+    plt.legend(['Train', 'Test'], loc='upper left')
+    plt.show()
     score = model.evaluate(x_test, y_test, verbose=0)
     print('Test loss:', score[0])
     print('Test accuracy:', score[1])
